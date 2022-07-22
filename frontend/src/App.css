@@ -1,0 +1,18 @@
+.title img {
+width: 2rem
+}
+.title {
+  display: flex;
+  align-items:center;
+}
+.title h1 {
+  font-size: 3rem;
+}
+.App {
+color:#707070;
+background-color:black;
+font-family:Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+html {
+  background-color:black;
+}
