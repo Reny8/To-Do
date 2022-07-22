@@ -4,4 +4,4 @@ from task.models import Task
 class Sub_Task(models.Model):
     related_task = models.ForeignKey(Task, on_delete = models.CASCADE)
     description = models.CharField(max_length = 50)
-    status = models.CharField(max_length = 10)
+    status = models.CharField(max_length = 15)
