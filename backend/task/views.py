@@ -16,3 +16,12 @@ def task_details(request):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
+    
+@api_view(['PUT','DELETE'])
+def update_task(request, pk):
+    task = get_object_or_404(Task, pk = pk)
+    if request.method == 'PUT':
+        serializer = TaskSerializer(task, data = request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_202_ACCEPTED)
