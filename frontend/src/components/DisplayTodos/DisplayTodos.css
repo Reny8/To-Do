@@ -1,14 +1,8 @@
 
 button {
   background-color: transparent;
-  color: #707070;
-}
-.around-table {
-    padding-right: 10rem;
-    padding-left: 10rem
-}
-.table td{
-color:#707070
+  border-radius: 0;
+  border-style: none;
 }
 .around-delete {
     width:1rem;
