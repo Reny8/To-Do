@@ -5,18 +5,45 @@ button {
   border-style: none;
   color:#707070
 }
-.around-delete {
-    width:1rem;
+.container {
+  width: 80%;
+  max-width: 600px;
+  margin: 50px auto
 }
-.todo-list {
-  padding-right:5rem;
-  padding-left: 5rem;
+button.accordion-todos {
+  width: 100%;
+  background-color: rgb(41, 41, 41);
+  color: #707070;
+  border: none;
+  outline:none;
+  text-align: left;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s linear;
+}
+
+button.accordion-todos:hover {
+  background-color:white;
+  color: black
+}
+
+.accordion-content {
+  padding: 0 20px;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  max-height: 0;
+  overflow:hidden;
 }
 
 ul {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 li {
   list-style-type: none;
+}
+
+.around-subs {
+  padding-bottom: 1rem;
+  padding-top: 1rem
 }

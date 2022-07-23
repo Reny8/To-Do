@@ -3,10 +3,19 @@ import "./DisplayTodos.css";
 import axios from "axios";
 const DisplayTodos = (props) => {
   const [subs, setSubs] = useState([]);
+  var accordions = document.getElementsByClassName("accordion-todos");
 
   useEffect(() => {
     getAllSubs();
   }, []);
+  function handleClick(current) {
+    var content = current.nextElementSibling;
+    if (content.style.maxHeight) {
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  }
   async function getAllSubs() {
     try {
       let response = await axios.get("http://127.0.0.1:8000/subs/");
@@ -16,39 +25,47 @@ const DisplayTodos = (props) => {
     }
   }
   return (
-    <div className="todo-list">
-      <table>
-        <tbody>
-          {props.todos.map((todo, index) => {
-            return (
-              <>
-                <tr key={index * 2}>
-                  <td>
+    <div className="container">
+      {props.todos.map((todo, index) => {
+        return (
+          <div key={todo.id * 2}>
+            <button
+              className="accordion-todos"
+              onClick={() => handleClick(accordions[index])}
+            >
+              {" "}
+              <div >
+                <ul>
+                  <li>
                     <input type="checkbox" />
-                  </td>
-                  <td>{todo.description}</td>
-                  <td>{todo.status}</td>
-                  <td>&times;</td>
-                </tr>{" "}
-                {subs
-                  .filter((sub) => sub.related_task.id === todo.id)
-                  .map((sub) => {
-                    return (
-                      <tr key={sub.id * 3}>
-                        <td>
+                  </li>
+                  <li>{todo.description}</li>
+                  <li>{todo.status}</li>
+                  <li><button>&times;</button></li>
+                </ul>
+              </div>
+            </button>
+            <div className="accordion-content">
+              {subs
+                .filter((sub) => sub.related_task.id === todo.id)
+                .map((sub) => {
+                  return (
+                    <div className="around-subs"key={sub * 3}>
+                      <ul>
+                        <li>
                           <input type="checkbox" />
-                        </td>
-                        <td>{sub.description}</td>
-                        <td>{sub.status}</td>
-                        <td>&times;</td>
-                      </tr>
-                    );
-                  })}{" "}
-              </>
-            );
-          })}
-        </tbody>
-      </table>
+                        </li>
+                        <li>{sub.description}</li>
+                        <li>{sub.status}</li>
+                        <li><button>&times;</button></li>
+                      </ul>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };
