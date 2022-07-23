@@ -34,32 +34,32 @@ const DisplayTodos = (props) => {
               onClick={() => handleClick(accordions[index])}
             >
               {" "}
-              <div >
-                <ul>
-                  <li>
-                    <input type="checkbox" />
-                  </li>
-                  <li>{todo.description}</li>
-                  <li>{todo.status}</li>
-                  <li><button>&times;</button></li>
-                </ul>
-              </div>
+              <ul>
+                <li>
+                  <input type="checkbox" />
+                </li>
+                <li>{todo.description}</li>
+                <li>{todo.status}</li>
+                <li>
+                  <button>&times;</button>
+                </li>
+              </ul>
             </button>
             <div className="accordion-content">
               {subs
                 .filter((sub) => sub.related_task.id === todo.id)
                 .map((sub) => {
                   return (
-                    <div className="around-subs"key={sub * 3}>
-                      <ul>
+                      <ul className="around-subs" key={sub * 3}>
                         <li>
                           <input type="checkbox" />
                         </li>
                         <li>{sub.description}</li>
                         <li>{sub.status}</li>
-                        <li><button>&times;</button></li>
+                        <li>
+                          <button>&times;</button>
+                        </li>
                       </ul>
-                    </div>
                   );
                 })}
             </div>
