@@ -3,7 +3,20 @@ button {
   background-color: transparent;
   border-radius: 0;
   border-style: none;
+  color:#707070
 }
 .around-delete {
     width:1rem;
+}
+.todo-list {
+  padding-right:5rem;
+  padding-left: 5rem;
+}
+
+ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+li {
+  list-style-type: none;
 }

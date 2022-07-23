@@ -1,37 +1,54 @@
-import React, { useState } from "react";
-import "./DisplayTodos.css"
-import IconButton from "@mui/material/IconButton";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { Table, TableCell, TableRow } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import "./DisplayTodos.css";
+import axios from "axios";
 const DisplayTodos = (props) => {
-  const [open, setOpen] = useState(false);
+  const [subs, setSubs] = useState([]);
+
+  useEffect(() => {
+    getAllSubs();
+  }, []);
+  async function getAllSubs() {
+    try {
+      let response = await axios.get("http://127.0.0.1:8000/subs/");
+      setSubs(response.data);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
   return (
     <div className="todo-list">
-      <Table aria-lable="collapsible table">
-      
-          {props.todos.map((todo) => {
-            return (  
-            <TableRow>
-                <TableCell>
-                  {" "}
-                  <IconButton
-                    aria-label="expand row"
-                    size="small"
-                    onClick={() => setOpen(!open)}
-                  >
-                    {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                  </IconButton>
-                </TableCell>
-                <TableCell><input type="checkbox"/></TableCell>
-                <TableCell>{todo.description}</TableCell>
-                <TableCell>{todo.status}</TableCell>
-                <TableCell className="button"><button>&times;</button></TableCell>
-              </TableRow>
+      <table>
+        <tbody>
+          {props.todos.map((todo, index) => {
+            return (
+              <>
+                <tr key={index * 2}>
+                  <td>
+                    <input type="checkbox" />
+                  </td>
+                  <td>{todo.description}</td>
+                  <td>{todo.status}</td>
+                  <td>&times;</td>
+                </tr>{" "}
+                {subs
+                  .filter((sub) => sub.related_task.id === todo.id)
+                  .map((sub) => {
+                    return (
+                      <tr key={sub.id * 3}>
+                        <td>
+                          <input type="checkbox" />
+                        </td>
+                        <td>{sub.description}</td>
+                        <td>{sub.status}</td>
+                        <td>&times;</td>
+                      </tr>
+                    );
+                  })}{" "}
+              </>
             );
           })}
-      
-      </Table>
+        </tbody>
+      </table>
     </div>
   );
 };
