@@ -1,52 +1,53 @@
 
-button {
-  background-color: transparent;
-  border-radius: 0;
-  border-style: none;
-  color:#707070
-}
 .container {
-  width: 80%;
+  width: 100%;
   max-width: 600px;
   margin: 50px auto
 }
 button.accordion-todos {
-  width: 100%;
-  background-color: rgb(41, 41, 41);
-  color: #707070;
+  width: 6%;
+  background-color: transparent;
+  color:black;
   border: none;
   outline:none;
   cursor: pointer;
-  padding: 7px 0;
   transition: background-color 0.3s linear;
   vertical-align:middle;
 }
 
 button.accordion-todos:hover {
-  background-color:rgba(8, 139, 30, 0.482);
-  color: white
+color:white
 }
 
 .accordion-content {
-  padding: 0 20px;
+  padding: 0.5px 70px;
   border-left: 1px solid grey;
   border-right: 1px solid grey;
   max-height: 0;
   overflow:hidden;
+  color:#707070
 }
-
-ul {
-  display: flex;
-  justify-content: space-between;
+ol, ul {
+  display: inline-flex;
   align-items: center;
+  justify-content:flex-start;
   margin-block-end: 0;
+  padding-left: 0
 }
 li {
   list-style-type: none;
-  text-align:center
+  display:inline-flex;
+  padding: 0px 20px;
 }
 
-.around-subs {
+.accordion-content ul {
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
+}
+div.todo-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color:#707070;
+  color:black
 }

@@ -14,3 +14,12 @@ html {
   background-color: black;
   color: #707070;
 }
+
+button {
+  background-color: transparent;
+  border-radius: 0;
+  border-style: none;
+}
+button:hover {
+  color:white
+}
