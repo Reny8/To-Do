@@ -52,6 +52,15 @@ const DisplayTodos = (props) => {
       alert(error.message);
     }
   }
+  async function deleteTask(id) {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/tasks/${id}/`)
+      props.getAllTodos()
+      getAllSubs()
+    } catch (error) {
+      alert(error.message)
+    }
+  }
   return (
     <div id="accordion">
       <table className="table">
@@ -98,7 +107,7 @@ const DisplayTodos = (props) => {
                     <button onClick={() => addSubTask(todo.id)}>+</button>
                   </td>
                   <td style={{ width: 0 }}>
-                    <button>&times;</button>
+                    <button onClick={()=>deleteTask(todo.id)}>&times;</button>
                   </td>
                 </tr>
                 {subs &&
