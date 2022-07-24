@@ -35,6 +35,15 @@ const DisplayTodos = (props) => {
       console.log(error.message);
     }
   }
+  async function deleteSub(id) {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/subs/${id}/`)
+      props.getAllTodos()
+      getAllSubs()
+    } catch (error) {
+      alert(error.message)
+    }
+  }
   async function getAllSubs() {
     try {
       let response = await axios.get("http://127.0.0.1:8000/subs/");
@@ -110,7 +119,7 @@ const DisplayTodos = (props) => {
                             <td>{sub.description}</td>
                             <td></td>
                             <td style={{ width: 0 }}>
-                              <button>&times;</button>
+                              <button onClick={()=> deleteSub(sub.id)}>&times;</button>
                             </td>
                           </tr>
                         );
