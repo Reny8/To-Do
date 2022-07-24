@@ -1,0 +1,17 @@
+.add {
+    background-color: #4A4949;
+    border: solid 2px #979494; 
+    width: 60rem;;
+    color: #8e8e8e
+}
+.around-add {
+    vertical-align:middle;
+    display:flex;
+    justify-content:space-between
+}
+.add-button {
+    background-color:#21542E;
+    border: solid 2px #23A638;
+    width:10rem;
+    color:#8e8e8e
+}

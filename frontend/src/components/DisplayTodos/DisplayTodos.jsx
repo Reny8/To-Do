@@ -5,6 +5,7 @@ import axios from "axios";
 const DisplayTodos = (props) => {
   const [subs, setSubs] = useState([]);
   var accordions = document.getElementsByClassName("collapse");
+  const [isChecked, setIsChecked] = useState(false);
   useEffect(() => {
     getAllSubs();
   }, []);
@@ -29,19 +30,19 @@ const DisplayTodos = (props) => {
         status: "Not Started",
       };
       await axios.post("http://127.0.0.1:8000/subs/", newSub);
-      props.getAllTodos()
-      getAllSubs()
+      props.getAllTodos();
+      getAllSubs();
     } catch (error) {
       console.log(error.message);
     }
   }
   async function deleteSub(id) {
     try {
-      await axios.delete(`http://127.0.0.1:8000/subs/${id}/`)
-      props.getAllTodos()
-      getAllSubs()
+      await axios.delete(`http://127.0.0.1:8000/subs/${id}/`);
+      props.getAllTodos();
+      getAllSubs();
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
   }
   async function getAllSubs() {
@@ -54,11 +55,11 @@ const DisplayTodos = (props) => {
   }
   async function deleteTask(id) {
     try {
-      await axios.delete(`http://127.0.0.1:8000/tasks/${id}/`)
-      props.getAllTodos()
-      getAllSubs()
+      await axios.delete(`http://127.0.0.1:8000/tasks/${id}/`);
+      props.getAllTodos();
+      getAllSubs();
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
   }
   return (
@@ -101,14 +102,19 @@ const DisplayTodos = (props) => {
                     </button>
                   </td>
                   <td style={{ width: 0 }}>
-                    <input type="checkbox" />
+                    <input
+                      onChange={() => {
+                        setIsChecked(!isChecked);
+                      }}
+                      type="checkbox"
+                    />
                   </td>
                   <td>{todo.description}</td>
                   <td style={{ width: 0 }}>
                     <button onClick={() => addSubTask(todo.id)}>+</button>
                   </td>
                   <td style={{ width: 0 }}>
-                    <button onClick={()=>deleteTask(todo.id)}>&times;</button>
+                    <button onClick={() => deleteTask(todo.id)}>&times;</button>
                   </td>
                 </tr>
                 {subs &&
@@ -124,12 +130,21 @@ const DisplayTodos = (props) => {
                           >
                             <td></td>
                             <td>
-                              <input type="checkbox" />
+                              <label>
+                                <input
+                                  onChange={() => {
+                                    setIsChecked(!isChecked);
+                                  }}
+                                  type="checkbox"
+                                />
+                              </label>
                             </td>
                             <td>{sub.description}</td>
                             <td></td>
                             <td style={{ width: 0 }}>
-                              <button onClick={()=> deleteSub(sub.id)}>&times;</button>
+                              <button onClick={() => deleteSub(sub.id)}>
+                                &times;
+                              </button>
                             </td>
                           </tr>
                         );
