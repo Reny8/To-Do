@@ -1,53 +1,27 @@
 
 .container {
-  width: 100%;
-  max-width: 600px;
-  margin: 50px auto
+  margin-top: 3rem
 }
-button.accordion-todos {
-  width: 6%;
-  background-color: transparent;
-  color:black;
+
+.collapse show button {
+  color: #707070
+}
+
+#accordion {
+  margin-left: 4rem;
+  margin-right: 4rem
+}
+#accordion table {
+  border-color:#707070
+}
+#accordion td {
+  color: #707070
+}
+#accordion button {
+  color: #707070;
   border: none;
-  outline:none;
-  cursor: pointer;
-  transition: background-color 0.3s linear;
-  vertical-align:middle;
 }
-
-button.accordion-todos:hover {
-color:white
-}
-
-.accordion-content {
-  padding: 0.5px 70px;
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
-  max-height: 0;
-  overflow:hidden;
-  color:#707070
-}
-ol, ul {
-  display: inline-flex;
-  align-items: center;
-  justify-content:flex-start;
-  margin-block-end: 0;
-  padding-left: 0
-}
-li {
-  list-style-type: none;
-  display:inline-flex;
-  padding: 0px 20px;
-}
-
-.accordion-content ul {
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
-}
-div.todo-strip {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  background-color:#707070;
-  color:black
+#accordion .collapse {
+  border-left: solid;
+  border-right: solid
 }

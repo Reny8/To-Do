@@ -8,18 +8,9 @@
 .App {
   color: #707070;
   background-color: black;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family:Segoe UI
 }
 html {
   background-color: black;
   color: #707070;
-}
-
-button {
-  background-color: transparent;
-  border-radius: 0;
-  border-style: none;
-}
-button:hover {
-  color:white
 }

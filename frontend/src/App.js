@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DisplayTodos from "./components/DisplayTodos/DisplayTodos";
 import Logo from "./logo.png";
+import AddTodos from "./components/AddTodos/AddTodos";
 function App() {
   const [todos, setTodos] = useState([]);
   useEffect(() => {
@@ -23,6 +24,7 @@ function App() {
         <img src={Logo} alt="logo" />
         <h1>Do To App</h1>
       </div>
+      <AddTodos />
       <DisplayTodos todos={todos} />
     </div>
   );
