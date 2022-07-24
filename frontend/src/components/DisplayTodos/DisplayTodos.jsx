@@ -69,7 +69,7 @@ const DisplayTodos = (props) => {
     if (td.style.textDecoration) {
       td.style.textDecoration = null;
     } else {
-      td.style.textDecoration = "line-through";
+      td.style.textDecoration = "line-through" + "#23A638";
     }
   }
   return (
