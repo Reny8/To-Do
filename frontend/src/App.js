@@ -24,8 +24,8 @@ function App() {
         <img src={Logo} alt="logo" />
         <h1>Do To App</h1>
       </div>
-      <AddTodos />
-      <DisplayTodos todos={todos} />
+      <AddTodos getAllTodos={getAllTodos}/>
+      <DisplayTodos getAllTodos={getAllTodos} todos={todos} />
     </div>
   );
 }

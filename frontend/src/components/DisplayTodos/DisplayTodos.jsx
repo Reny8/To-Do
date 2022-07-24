@@ -9,11 +9,30 @@ const DisplayTodos = (props) => {
     getAllSubs();
   }, []);
   function handleClick(content) {
-    
-    if (content.className === "collapse") {
-      content.className = "collapse show";
-    } else {
-      content.className = "collapse"
+    try {
+      if (content.className === "collapse") {
+        content.className = "collapse show";
+      } else {
+        content.className = "collapse";
+      }
+    } catch (error) {
+      alert("No current sub-tasks for this to-do");
+    }
+  }
+
+  async function addSubTask(todoId) {
+    try {
+      let input = prompt("Enter the sub-task description");
+      let newSub = {
+        related_task_id: todoId,
+        description: input,
+        status: "Not Started",
+      };
+      await axios.post("http://127.0.0.1:8000/subs/", newSub);
+      props.getAllTodos()
+      getAllSubs()
+    } catch (error) {
+      console.log(error.message);
     }
   }
   async function getAllSubs() {
@@ -43,7 +62,8 @@ const DisplayTodos = (props) => {
                   <td style={{ width: 16 }}>
                     {" "}
                     <button
-                      className="btn btn-link collapsed" data-toggle="collapse"
+                      className="btn btn-link collapsed"
+                      data-toggle="collapse"
                       onClick={() => handleClick(accordions[index])}
                     >
                       <svg
@@ -65,25 +85,36 @@ const DisplayTodos = (props) => {
                     <input type="checkbox" />
                   </td>
                   <td>{todo.description}</td>
-                  <td style={{width:0}}>
+                  <td style={{ width: 0 }}>
+                    <button onClick={() => addSubTask(todo.id)}>+</button>
+                  </td>
+                  <td style={{ width: 0 }}>
                     <button>&times;</button>
                   </td>
                 </tr>
-                  {subs && subs
+                {subs &&
+                  subs
                     .filter((sub) => sub.related_task.id === todo.id)
                     .map((sub) => {
-                      return (
-                        <tr className="collapse" key={sub.id} data-parent="#accordion">
-                          <td></td>
-                          <td>
-                            <input type="checkbox" />
-                          </td>
-                          <td>{sub.description}</td>
-                          <td style={{width:0}}>
-                            <button>&times;</button>
-                          </td>
-                        </tr>
-                      );
+                      if (sub) {
+                        return (
+                          <tr
+                            className="collapse"
+                            key={sub.id}
+                            data-parent="#accordion"
+                          >
+                            <td></td>
+                            <td>
+                              <input type="checkbox" />
+                            </td>
+                            <td>{sub.description}</td>
+                            <td></td>
+                            <td style={{ width: 0 }}>
+                              <button>&times;</button>
+                            </td>
+                          </tr>
+                        );
+                      }
                     })}
               </>
             );
