@@ -3,18 +3,24 @@
   margin-top: 3rem
 }
 
-.collapse show button {
-  color: #707070
+.collapse.show button {
+  color: #8e8e8e;
+  background-color:transparent
 }
+
 #accordion table {
-  border-color:#707070
+  border-color:#8e8e8e
 }
 #accordion td {
-  color: #707070
+  color: #8e8e8e
 }
 #accordion button {
-  color: #707070;
+  color: #8e8e8e;
   border: none;
+}
+#accordion button:hover {
+  color:white;
+  font-size: larger;
 }
 #accordion .collapse {
   border-left: solid;
@@ -23,4 +29,9 @@
 
 #accordion tr {
   vertical-align:middle
+}
+
+.todo-strip button {
+  background-color: transparent;
+  color: #8e8e8e
 }
