@@ -5,6 +5,8 @@ import axios from "axios";
 const DisplayTodos = (props) => {
   const [subs, setSubs] = useState([]);
   var accordions = document.getElementsByClassName("collapse");
+  var todoText = document.getElementsByClassName("text");
+  var subText = document.getElementsByClassName("sub-text");
   const [isChecked, setIsChecked] = useState(false);
   useEffect(() => {
     getAllSubs();
@@ -62,6 +64,14 @@ const DisplayTodos = (props) => {
       alert(error.message);
     }
   }
+  function changeText(td) {
+    setIsChecked(!isChecked);
+    if (td.style.textDecoration) {
+      td.style.textDecoration = null;
+    } else {
+      td.style.textDecoration = "line-through";
+    }
+  }
   return (
     <div id="accordion">
       <table className="table">
@@ -103,13 +113,13 @@ const DisplayTodos = (props) => {
                   </td>
                   <td style={{ width: 0 }}>
                     <input
-                      onChange={() => {
-                        setIsChecked(!isChecked);
+                      onClick={() => {
+                        changeText(todoText[index]);
                       }}
                       type="checkbox"
                     />
                   </td>
-                  <td>{todo.description}</td>
+                  <td className="text">{todo.description}</td>
                   <td style={{ width: 0 }}>
                     <button onClick={() => addSubTask(todo.id)}>+</button>
                   </td>
@@ -120,7 +130,7 @@ const DisplayTodos = (props) => {
                 {subs &&
                   subs
                     .filter((sub) => sub.related_task.id === todo.id)
-                    .map((sub) => {
+                    .map((sub, found) => {
                       if (sub) {
                         return (
                           <tr
@@ -132,14 +142,14 @@ const DisplayTodos = (props) => {
                             <td>
                               <label>
                                 <input
-                                  onChange={() => {
-                                    setIsChecked(!isChecked);
+                                  onClick={() => {
+                                    changeText(subText[found]);
                                   }}
                                   type="checkbox"
                                 />
                               </label>
                             </td>
-                            <td>{sub.description}</td>
+                            <td className="sub-text">{sub.description}</td>
                             <td></td>
                             <td style={{ width: 0 }}>
                               <button onClick={() => deleteSub(sub.id)}>
