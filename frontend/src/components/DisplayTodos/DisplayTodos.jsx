@@ -82,6 +82,7 @@ const DisplayTodos = (props) => {
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -120,6 +121,9 @@ const DisplayTodos = (props) => {
                     />
                   </td>
                   <td className="text">{todo.description}</td>
+                  <td style={{ width: 0 }}>
+                    <button>EDIT</button>
+                  </td>
                   <td style={{ width: 0 }}>
                     <button onClick={() => addSubTask(todo.id)}>+</button>
                   </td>
