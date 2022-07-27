@@ -154,12 +154,15 @@ const DisplayTodos = (props) => {
                               </label>
                             </td>
                             <td className="sub-text">{sub.description}</td>
-                            <td></td>
+                            <td style={{ width: 0 }}>
+                              <button>EDIT</button>
+                            </td>
                             <td style={{ width: 0 }}>
                               <button onClick={() => deleteSub(sub.id)}>
                                 &times;
                               </button>
-                            </td>
+                            </td>{" "}
+                            <td></td>
                           </tr>
                         );
                       }
