@@ -7,7 +7,6 @@ const DisplayTodos = (props) => {
   var accordions = document.getElementsByClassName("collapse");
   var todoText = document.getElementsByClassName("text");
   var subText = document.getElementsByClassName("sub-text");
-  const [isChecked, setIsChecked] = useState(false);
   useEffect(() => {
     getAllSubs();
   }, []);
@@ -23,6 +22,20 @@ const DisplayTodos = (props) => {
     }
   }
 
+  async function editTodo(id) {
+    try {
+      let input = prompt("Enter changes below");
+      let update = {
+        description: input,
+        status: "Not Started",
+      };
+      await axios.put(`http://127.0.0.1:8000/tasks/${id}/`, update);
+      props.getAllTodos();
+      getAllSubs();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
   async function addSubTask(todoId) {
     try {
       let input = prompt("Enter the sub-task description");
@@ -65,7 +78,6 @@ const DisplayTodos = (props) => {
     }
   }
   function changeText(td) {
-    setIsChecked(!isChecked);
     if (td.style.textDecoration) {
       td.style.textDecoration = null;
     } else {
@@ -122,7 +134,7 @@ const DisplayTodos = (props) => {
                   </td>
                   <td className="text">{todo.description}</td>
                   <td style={{ width: 0 }}>
-                    <button>EDIT</button>
+                    <button onClick={() => editTodo(todo.id)}>EDIT</button>
                   </td>
                   <td style={{ width: 0 }}>
                     <button onClick={() => addSubTask(todo.id)}>+</button>
