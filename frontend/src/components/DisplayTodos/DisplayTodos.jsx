@@ -10,6 +10,8 @@ const DisplayTodos = (props) => {
   useEffect(() => {
     getAllSubs();
   }, []);
+
+  // ACCORDION FUNCTIONALITY
   function handleClick(content) {
     try {
       if (content.className === "collapse") {
@@ -22,6 +24,7 @@ const DisplayTodos = (props) => {
     }
   }
 
+  // EDIT TODOS
   async function editTodo(id) {
     try {
       let input = prompt("Enter changes below");
@@ -36,6 +39,25 @@ const DisplayTodos = (props) => {
       alert(error.message);
     }
   }
+
+  // EDIT SUB-TASK
+  async function editSub(sub_id, related_todo_id) {
+    try {
+      let input = prompt("Enter changes below:");
+      let updateSub = {
+        related_task_id: related_todo_id,
+        description: input,
+        status: "Not Started",
+      };
+      await axios.put(`http://127.0.0.1:8000/subs/${sub_id}/`, updateSub);
+      props.getAllTodos()
+      getAllSubs()
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  //ADD SUB-TASKS TO THE TO DO
   async function addSubTask(todoId) {
     try {
       let input = prompt("Enter the sub-task description");
@@ -51,6 +73,8 @@ const DisplayTodos = (props) => {
       console.log(error.message);
     }
   }
+
+  //DELETE A SUB-TASK
   async function deleteSub(id) {
     try {
       await axios.delete(`http://127.0.0.1:8000/subs/${id}/`);
@@ -60,6 +84,8 @@ const DisplayTodos = (props) => {
       alert(error.message);
     }
   }
+
+  //GET ALL SUBS
   async function getAllSubs() {
     try {
       let response = await axios.get("http://127.0.0.1:8000/subs/");
@@ -68,6 +94,8 @@ const DisplayTodos = (props) => {
       alert(error.message);
     }
   }
+
+  //DELETE A TO DO
   async function deleteTask(id) {
     try {
       await axios.delete(`http://127.0.0.1:8000/tasks/${id}/`);
@@ -77,6 +105,8 @@ const DisplayTodos = (props) => {
       alert(error.message);
     }
   }
+
+  //CROSS OUT TEXT WHEN CHECKBOX IS CLICKED
   function changeText(td) {
     if (td.style.textDecoration) {
       td.style.textDecoration = null;
@@ -84,6 +114,7 @@ const DisplayTodos = (props) => {
       td.style.textDecoration = "line-through" + "#23A638";
     }
   }
+
   return (
     <div id="accordion">
       <table className="table">
@@ -167,7 +198,7 @@ const DisplayTodos = (props) => {
                             </td>
                             <td className="sub-text">{sub.description}</td>
                             <td style={{ width: 0 }}>
-                              <button>EDIT</button>
+                              <button onClick={() => editSub(sub.id, todo.id)}>EDIT</button>
                             </td>
                             <td style={{ width: 0 }}>
                               <button onClick={() => deleteSub(sub.id)}>
