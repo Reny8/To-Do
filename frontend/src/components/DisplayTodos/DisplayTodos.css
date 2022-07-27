@@ -39,5 +39,8 @@
 
 .todo-strip button {
   background-color: transparent;
-  color: #8e8e8e
+}
+
+.btn-link {
+  --bs-btn-focus-shadow-rgb: none;
 }
