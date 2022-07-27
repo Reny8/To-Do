@@ -181,7 +181,7 @@ const DisplayTodos = (props) => {
                       if (sub) {
                         return (
                           <tr
-                            className="collapse"
+                            className="collapse show"
                             key={sub.id}
                             data-parent="#accordion"
                           >
