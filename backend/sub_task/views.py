@@ -5,15 +5,15 @@ from .models import Sub_Task
 from .serializers import Sub_TaskSerializer
 from django.shortcuts import get_object_or_404
 
-@api_view(['GET','PUT','DELETE'])
+@api_view(['PUT','DELETE'])
 def sub_task_details(request,pk):
+    sub_update = get_object_or_404(Sub_Task, pk = pk)
     if request.method == 'PUT':
         serializer = Sub_TaskSerializer(sub_update, data = request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
     elif request.method == 'DELETE': 
-        sub_update = get_object_or_404(Sub_Task, pk = pk)
         sub_update.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
