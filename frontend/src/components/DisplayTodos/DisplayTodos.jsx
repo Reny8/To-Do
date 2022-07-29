@@ -24,38 +24,6 @@ const DisplayTodos = (props) => {
     }
   }
 
-  // EDIT TODOS
-  async function editTodo(id) {
-    try {
-      let input = prompt("Enter changes below");
-      let update = {
-        description: input,
-        status: "Not Started",
-      };
-      await axios.put(`http://127.0.0.1:8000/tasks/${id}/`, update);
-      props.getAllTodos();
-      getAllSubs();
-    } catch (error) {
-      alert(error.message);
-    }
-  }
-
-  // EDIT SUB-TASK
-  async function editSub(sub_id, related_todo_id) {
-    try {
-      let input = prompt("Enter changes below:");
-      let updateSub = {
-        related_task_id: related_todo_id,
-        description: input,
-        status: "Not Started",
-      };
-      await axios.put(`http://127.0.0.1:8000/subs/${sub_id}/`, updateSub);
-      props.getAllTodos()
-      getAllSubs()
-    } catch (error) {
-      alert(error.message);
-    }
-  }
 
   //ADD SUB-TASKS TO THE TO DO
   async function addSubTask(todoId) {
@@ -165,51 +133,48 @@ const DisplayTodos = (props) => {
                   </td>
                   <td className="text">{todo.description}</td>
                   <td style={{ width: 0 }}>
-                    <button onClick={() => editTodo(todo.id)}>EDIT</button>
-                  </td>
-                  <td style={{ width: 0 }}>
                     <button onClick={() => addSubTask(todo.id)}>+</button>
                   </td>
                   <td style={{ width: 0 }}>
                     <button onClick={() => deleteTask(todo.id)}>&times;</button>
                   </td>
                 </tr>
-                {subs &&
-                  subs
-                    .filter((sub) => sub.related_task.id === todo.id)
-                    .map((sub, found) => {
-                      if (sub) {
-                        return (
-                          <tr
-                            className="collapse show"
-                            key={sub.id}
-                            data-parent="#accordion"
-                          >
-                            <td></td>
-                            <td>
-                              <label>
-                                <input
-                                  onClick={() => {
-                                    changeText(subText[found]);
-                                  }}
-                                  type="checkbox"
-                                />
-                              </label>
-                            </td>
-                            <td className="sub-text">{sub.description}</td>
-                            <td style={{ width: 0 }}>
-                              <button onClick={() => editSub(sub.id, todo.id)}>EDIT</button>
-                            </td>
-                            <td style={{ width: 0 }}>
-                              <button onClick={() => deleteSub(sub.id)}>
-                                &times;
-                              </button>
-                            </td>{" "}
-                            <td></td>
-                          </tr>
-                        );
-                      }
-                    })}
+                  {subs &&
+                    subs
+                      .filter((sub) => sub.related_task.id === todo.id)
+                      .map((sub, found) => {
+                        if (sub) {
+                          return (
+                            <tr className="collapse show" data-parent="#accordion">
+                              <td></td>
+                              <td>
+                                <label>
+                                  <input
+                                    onClick={() => {
+                                      changeText(subText[found]);
+                                    }}
+                                    type="checkbox"
+                                  />
+                                </label>
+                              </td>
+                              <td className="sub-text">{sub.description}</td>
+                              <td style={{ width: 0 }}>
+                                <button
+                                  onClick={() => editSub(sub.id, todo.id)}
+                                >
+                                  EDIT
+                                </button>
+                              </td>
+                              <td style={{ width: 0 }}>
+                                <button onClick={() => deleteSub(sub.id)}>
+                                  &times;
+                                </button>
+                              </td>{" "}
+                              <td></td>
+                     </tr>
+                          );
+                        }
+                      })}
               </>
             );
           })}
