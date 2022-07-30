@@ -24,7 +24,6 @@ const DisplayTodos = (props) => {
     }
   }
 
-
   //ADD SUB-TASKS TO THE TO DO
   async function addSubTask(todoId) {
     try {
@@ -93,7 +92,6 @@ const DisplayTodos = (props) => {
             <th></th>
             <th></th>
             <th></th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -139,42 +137,38 @@ const DisplayTodos = (props) => {
                     <button onClick={() => deleteTask(todo.id)}>&times;</button>
                   </td>
                 </tr>
-                  {subs &&
-                    subs
-                      .filter((sub) => sub.related_task.id === todo.id)
-                      .map((sub, found) => {
-                        if (sub) {
-                          return (
-                            <tr className="collapse show" data-parent="#accordion">
-                              <td></td>
-                              <td>
-                                <label>
-                                  <input
-                                    onClick={() => {
-                                      changeText(subText[found]);
-                                    }}
-                                    type="checkbox"
-                                  />
-                                </label>
-                              </td>
-                              <td className="sub-text">{sub.description}</td>
-                              <td style={{ width: 0 }}>
-                                <button
-                                  onClick={() => editSub(sub.id, todo.id)}
-                                >
-                                  EDIT
-                                </button>
-                              </td>
-                              <td style={{ width: 0 }}>
-                                <button onClick={() => deleteSub(sub.id)}>
-                                  &times;
-                                </button>
-                              </td>{" "}
-                              <td></td>
-                     </tr>
-                          );
-                        }
-                      })}
+                {subs &&
+                  subs
+                    .filter((sub) => sub.related_task.id === todo.id)
+                    .map((sub, found) => {
+                      if (sub) {
+                        return (
+                          <tr
+                            className="collapse show"
+                            data-parent="#accordion"
+                          >
+                            <td></td>
+                            <td>
+                              <label>
+                                <input
+                                  onClick={() => {
+                                    changeText(subText[found]);
+                                  }}
+                                  type="checkbox"
+                                />
+                              </label>
+                            </td>
+                            <td className="sub-text">{sub.description}</td>
+                            <td style={{ width: 0 }}>
+                              <button onClick={() => deleteSub(sub.id)}>
+                                &times;
+                              </button>
+                            </td>{" "}
+                            <td></td>
+                          </tr>
+                        );
+                      }
+                    })}
               </>
             );
           })}
