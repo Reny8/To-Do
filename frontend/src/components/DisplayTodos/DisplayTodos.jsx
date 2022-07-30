@@ -25,7 +25,7 @@ const DisplayTodos = (props) => {
         }
       }
     } else {
-      return;
+      return alert("NO SUB TO-DOS");
     }
   }
 
@@ -157,6 +157,7 @@ const DisplayTodos = (props) => {
                             <td>
                               <label>
                                 <input
+                                  className="sub-text"
                                   onClick={() => {
                                     changeText(subText[found]);
                                   }}
@@ -164,7 +165,7 @@ const DisplayTodos = (props) => {
                                 />
                               </label>
                             </td>
-                            <td className="sub-text">{sub.description}</td>
+                            <td>{sub.description}</td>
                             <td style={{ width: 0 }}>
                               <button onClick={() => deleteSub(sub.id)}>
                                 &times;
