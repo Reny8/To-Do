@@ -4,7 +4,7 @@ import "../../App.css";
 import axios from "axios";
 const DisplayTodos = (props) => {
   const [subs, setSubs] = useState([]);
-  var accordions = document.getElementsByClassName("collapse");
+  var group = document.getElementsByClassName("todo-strip");
   var todoText = document.getElementsByClassName("text");
   var subText = document.getElementsByClassName("sub-text");
   useEffect(() => {
@@ -13,14 +13,19 @@ const DisplayTodos = (props) => {
 
   // ACCORDION FUNCTIONALITY
   function handleClick(content) {
-    try {
-      if (content.className === "collapse") {
-        content.className = "collapse show";
-      } else {
-        content.className = "collapse";
+    var row = content.nextSibling;
+    if (row) {
+      while (row.className !== "todo-strip") {
+        if (row.className === "collapse") {
+          row.className = "collapse show";
+          row = row.nextSibling;
+        } else {
+          row.className = "collapse";
+          row = row.nextSibling;
+        }
       }
-    } catch (error) {
-      alert("No current sub-tasks for this to-do");
+    } else {
+      return;
     }
   }
 
@@ -104,7 +109,7 @@ const DisplayTodos = (props) => {
                     <button
                       className="btn btn-link collapsed"
                       data-toggle="collapse"
-                      onClick={() => handleClick(accordions[index])}
+                      onClick={() => handleClick(group[index])}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +149,8 @@ const DisplayTodos = (props) => {
                       if (sub) {
                         return (
                           <tr
-                            className="collapse show"
+                            key={sub.id * 4}
+                            className="collapse"
                             data-parent="#accordion"
                           >
                             <td></td>
