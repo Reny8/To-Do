@@ -18,16 +18,27 @@ function App() {
       alert(error.message);
     }
   }
-  return (
-    <div className="App">
-      <div className="title">
-        <img src={Logo} alt="logo" />
-        <h1>Do To App</h1>
+  if (todos) {
+    return (
+      <div className="App">
+        <div className="title">
+          <img src={Logo} alt="logo" />
+          <h1>Do To App</h1>
+        </div>
+        <AddTodos getAllTodos={getAllTodos} />
+        <DisplayTodos getAllTodos={getAllTodos} todos={todos} />
       </div>
-      <AddTodos getAllTodos={getAllTodos}/>
-      <DisplayTodos getAllTodos={getAllTodos} todos={todos} />
-    </div>
-  );
+    );
+  } else
+    return (
+      <div className="App">
+        <div className="title">
+          <img src={Logo} alt="logo" />
+          <h1>Do To App</h1>
+        </div>
+        <AddTodos getAllTodos={getAllTodos} />
+      </div>
+    );
 }
 
 export default App;
