@@ -41,6 +41,6 @@
   background-color: transparent;
 }
 
-.btn-link {
+.btn.btn-link.collapsed {
   --bs-btn-focus-shadow-rgb: none;
 }
