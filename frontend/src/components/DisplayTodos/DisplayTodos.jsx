@@ -4,6 +4,7 @@ import "../../App.css";
 import axios from "axios";
 const DisplayTodos = (props) => {
   const [subs, setSubs] = useState([]);
+  const [counter, setCounter] = useState(0);
   var group = document.getElementsByClassName("todo-strip");
   var todoText = document.getElementsByClassName("text");
   var subText = document.getElementsByClassName("sub-text");
@@ -79,12 +80,16 @@ const DisplayTodos = (props) => {
   }
 
   //CROSS OUT TEXT WHEN CHECKBOX IS CLICKED
-  function changeText(td) {
-    if (td.style.textDecoration) {
-      td.style.textDecoration = null;
-    } else {
-      td.style.textDecoration = "line-through" + "#23A638";
-    }
+  function changeText(textType,text) {
+      for (let i = 0; i < textType.length; i++) {
+        if (textType[i].textContent === text) {
+          if (textType[i].style.textDecoration) {
+            textType[i].style.textDecoration = null;
+          } else {
+            textType[i].style.textDecoration = "line-through" + "#23A638";
+          }
+        }
+      }
   }
 
   return (
@@ -129,7 +134,7 @@ const DisplayTodos = (props) => {
                   <td style={{ width: 0 }}>
                     <input
                       onClick={() => {
-                        changeText(todoText[index]);
+                        changeText(todoText, todo.description);
                       }}
                       type="checkbox"
                     />
@@ -145,11 +150,11 @@ const DisplayTodos = (props) => {
                 {subs &&
                   subs
                     .filter((sub) => sub.related_task.id === todo.id)
-                    .map((sub, found) => {
+                    .map((sub) => {
                       if (sub) {
                         return (
                           <tr
-                            key={sub.id * 4}
+                            key={sub.id * 6}
                             className="collapse"
                             data-parent="#accordion"
                           >
@@ -157,15 +162,15 @@ const DisplayTodos = (props) => {
                             <td>
                               <label>
                                 <input
-                                  className="sub-text"
+                                  className="check"
                                   onClick={() => {
-                                    changeText(subText[found]);
+                                    changeText(subText, sub.description);
                                   }}
                                   type="checkbox"
                                 />
                               </label>
                             </td>
-                            <td>{sub.description}</td>
+                            <td className="sub-text">{sub.description}</td>
                             <td style={{ width: 0 }}>
                               <button onClick={() => deleteSub(sub.id)}>
                                 &times;
@@ -175,6 +180,7 @@ const DisplayTodos = (props) => {
                           </tr>
                         );
                       }
+               
                     })}
               </>
             );
