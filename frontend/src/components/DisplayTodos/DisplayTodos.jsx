@@ -4,7 +4,6 @@ import "../../App.css";
 import axios from "axios";
 const DisplayTodos = (props) => {
   const [subs, setSubs] = useState([]);
-  const [counter, setCounter] = useState(0);
   var group = document.getElementsByClassName("todo-strip");
   var todoText = document.getElementsByClassName("text");
   var subText = document.getElementsByClassName("sub-text");
